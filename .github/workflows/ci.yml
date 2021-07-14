@@ -23,6 +23,10 @@ jobs:
           mkdir -p ~/.hidden_dir
           echo "blabla" > touch ~/file
           mkdir -p ~/dir
+          [ -f "~/.hidden_file" ]
+          [ -d "~/.hidden_dir" ]
+          [ -f "~/file" ]
+          [ -d "~/dir" ]
         shell: bash
       - name: cehckout repo
         uses: actions/checkout@v2
@@ -32,8 +36,8 @@ jobs:
           home: true
       - name: check no garbage
         run: |
-          [ ! -f "~/.hidden_file" ] &&
-          [ ! -d "~/.hidden_dir" ] &&
-          [ ! -f "~/file" ] &&
-          [ -d "~/dir" ]
+          [ ! -f "~/.hidden_file" ]
+          [ ! -d "~/.hidden_dir" ]
+          [ ! -f "~/file" ]
+          [ ! -d "~/dir" ]
         shell: bash

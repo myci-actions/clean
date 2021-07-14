@@ -14,12 +14,16 @@ runs:
     - name: clean home dir
       run: |
         if [ "${{ inputs.home }}" == "true" ]; then
-          (
-            cd ~
-            # NOTE: ls on macosx does not support long key names, e.g. --almost-all
-            for f in $(ls -A); do
-              rm -rf $f
-            done
-          )
+          if [ ! -z "${{ job.container }}" ]; then
+            (
+              cd ~
+              # NOTE: ls on macosx does not support long key names, e.g. --almost-all
+              for f in $(ls -A); do
+                rm -rf $f
+              done
+            )
+          else
+            echo "not a container build, do not clean home dir"
+          fi
         fi
       shell: bash

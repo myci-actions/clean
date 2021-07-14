@@ -12,7 +12,7 @@ jobs:
           - {os: ubuntu, codename: bionic, image_owner: , package_type: deb}
           - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
     runs-on: ubuntu-latest
-    container: ${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' && ':' }}${{ matrix.codename }}
+    container: ${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' && ':' || '' }}${{ matrix.codename }}
     name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
     steps:
       - name: add garbage
@@ -23,7 +23,7 @@ jobs:
           mkdir -p ~/dir
       - name: cehckout repo
         uses: actions/checkout@v2
-      - name: add cppfw deb repo
+      - name: clean
         uses: ./
       - name: check no garbage
         run: |

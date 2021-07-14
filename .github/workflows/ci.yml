@@ -23,10 +23,10 @@ jobs:
           mkdir -p ~/.hidden_dir
           echo "blabla" > touch ~/file
           mkdir -p ~/dir
-          [ -f "~/.hidden_file" ]
-          [ -d "~/.hidden_dir" ]
-          [ -f "~/file" ]
-          [ -d "~/dir" ]
+          [ -f "~/.hidden_file" ] || echo "~/.hidden_file not found" && exit 1
+          [ -d "~/.hidden_dir" ] || echo "~/.hidden_dir not found" && exit 1
+          [ -f "~/file" ] || echo "~/file not found" && exit 1
+          [ -d "~/dir" ] || echo "~/dir not found" && exit 1
         shell: bash
       - name: cehckout repo
         uses: actions/checkout@v2
@@ -36,8 +36,8 @@ jobs:
           home: true
       - name: check no garbage
         run: |
-          [ ! -f "~/.hidden_file" ]
-          [ ! -d "~/.hidden_dir" ]
-          [ ! -f "~/file" ]
-          [ ! -d "~/dir" ]
+          [ ! -f "~/.hidden_file" ] || echo "~/.hidden_file found" && exit 1
+          [ ! -d "~/.hidden_dir" ] || echo "~/.hidden_dir found" && exit 1
+          [ ! -f "~/file" ] || echo "~/file found" && exit 1
+          [ ! -d "~/dir" ] || echo "~/dir found" && exit 1
         shell: bash

@@ -16,7 +16,8 @@ runs:
         if [ "${{ inputs.home }}" == "true" ]; then
           (
             cd ~
-            for f in $(ls --almost-all); do
+            # NOTE: ls on macosx does not support long key names, e.g. --almost-all
+            for f in $(ls -A); do
               rm -rf $f
             done
           )

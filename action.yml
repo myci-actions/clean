@@ -1,0 +1,22 @@
+name: 'clean work dirs'
+description: 'Clean working directories after previous jobs'
+branding:
+  icon: 'archive'
+  color: 'grey'
+inputs:
+  home:
+    description: 'clean home directory'
+    required: false
+    default: true
+runs:
+  using: "composite"
+  steps:
+    - name: clean home dir
+      run: |
+        (
+          cd ~
+          for f in $(ls --almost-all); do
+            rm -rf $f
+          done
+        )
+      shell: bash

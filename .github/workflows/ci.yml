@@ -1,0 +1,33 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  linux_container:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: , codename: , image_owner: , package_type: }
+          # - {os: debian, codename: stretch, image_owner: , package_type: deb}
+          - {os: debian, codename: buster, image_owner: , package_type: deb}
+          - {os: ubuntu, codename: bionic, image_owner: , package_type: deb}
+          - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' && ':' }}${{ matrix.codename }}
+    name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+    steps:
+      - name: add garbage
+        run: |
+          touch ~/.hidden_file
+          mkdir -p ~/.hidden_dir
+          touch ~/file
+          mkdir -p ~/dir
+      - name: cehckout repo
+        uses: actions/checkout@v2
+      - name: add cppfw deb repo
+        uses: ./
+      - name: check no garbage
+        run: |
+          [ ! -f "~/.hidden_file" ] &&
+          [ ! -d "~/.hidden_dir" ] &&
+          [ ! -f "~/file" ] &&
+          [ ! -d "~/dir" ]

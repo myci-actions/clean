@@ -6,13 +6,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {os: debian, codename: stretch, image_owner: , package_type: deb}
-          - {os: debian, codename: buster, image_owner: , package_type: deb}
-          - {os: ubuntu, codename: bionic, image_owner: , package_type: deb}
-          - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
-    runs-on: ubuntu-latest
-    container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+          - {runson: windows-latest, os: , codename: , image_owner: , package_type: }
+          - {runson: macos-latest, os: , codename: , image_owner: , package_type: }
+          - {runson: ubuntu-latest, os: , codename: , image_owner: , package_type: }
+          - {runson: ubuntu-latest, os: debian, codename: stretch, image_owner: , package_type: deb}
+          - {runson: ubuntu-latest, os: debian, codename: buster, image_owner: , package_type: deb}
+          - {runson: ubuntu-latest, os: ubuntu, codename: bionic, image_owner: , package_type: deb}
+          - {runson: ubuntu-latest, os: ubuntu, codename: focal, image_owner: , package_type: deb}
+    runs-on: ${{ matrix.runson }}
+    container: ${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' || ':' }}${{ matrix.codename }}
+    name: ${{ matrix.os == '' && 'ubuntu-latest' || 'linux container - ' }}${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' || ':' }}${{ matrix.codename }}
     steps:
       - name: add garbage
         run: |

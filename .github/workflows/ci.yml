@@ -19,9 +19,9 @@ jobs:
     steps:
       - name: add garbage
         run: |
-          touch ~/.hidden_file
+          echo "blabla" > ~/.hidden_file
           mkdir -p ~/.hidden_dir
-          touch ~/file
+          echo "blabla" > touch ~/file
           mkdir -p ~/dir
       - name: cehckout repo
         uses: actions/checkout@v2

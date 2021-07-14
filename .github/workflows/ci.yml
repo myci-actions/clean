@@ -13,7 +13,7 @@ jobs:
           - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
     runs-on: ubuntu-latest
     container: ${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' && ':' || '' }}${{ matrix.codename }}
-    name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+    name: ${{ matrix.os == '' && 'ubuntu-latest' || 'linux container - ' && matrix.image_owner && matrix.os && ':' && matrix.codename }}
     steps:
       - name: add garbage
         run: |
@@ -25,8 +25,11 @@ jobs:
         uses: actions/checkout@v2
       - name: clean
         uses: ./
+        with:
+          home: true
       - name: check no garbage
         run: |
+          sleep 5
           [ ! -f "~/.hidden_file" ] &&
           [ ! -d "~/.hidden_dir" ] &&
           [ ! -f "~/file" ] &&

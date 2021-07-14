@@ -13,10 +13,12 @@ runs:
   steps:
     - name: clean home dir
       run: |
-        (
-          cd ~
-          for f in $(ls --almost-all); do
-            rm -rf $f
-          done
-        )
+        if [ "${{ inputs.home }}" == "true" ]; then
+          (
+            cd ~
+            for f in $(ls --almost-all); do
+              rm -rf $f
+            done
+          )
+        fi
       shell: bash

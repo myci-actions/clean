@@ -23,6 +23,7 @@ jobs:
           mkdir -p ~/.hidden_dir
           echo "blabla" > touch ~/file
           mkdir -p ~/dir
+        shell: bash
       - name: cehckout repo
         uses: actions/checkout@v2
       - name: clean
@@ -35,3 +36,4 @@ jobs:
           [ ! -d "~/.hidden_dir" ] &&
           [ ! -f "~/file" ] &&
           [ ! -d "~/dir" ]
+        shell: bash

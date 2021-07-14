@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: add garbage
         run: |
+          pwd
           touch ~/.hidden_file
           mkdir -p ~/.hidden_dir
           touch ~/file

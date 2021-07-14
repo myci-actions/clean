@@ -35,5 +35,5 @@ jobs:
           [ ! -f "~/.hidden_file" ] &&
           [ ! -d "~/.hidden_dir" ] &&
           [ ! -f "~/file" ] &&
-          [ ! -d "~/dir" ]
+          [ -d "~/dir" ]
         shell: bash

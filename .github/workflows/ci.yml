@@ -9,10 +9,8 @@ jobs:
           - {runs-on: windows-latest, os: , codename: , image_owner: , package_type: }
           - {runs-on: macos-latest, os: , codename: , image_owner: , package_type: }
           - {runs-on: ubuntu-latest, os: , codename: , image_owner: , package_type: }
-          - {runs-on: ubuntu-latest, os: debian, codename: stretch, image_owner: , package_type: deb}
-          - {runs-on: ubuntu-latest, os: debian, codename: buster, image_owner: , package_type: deb}
-          - {runs-on: ubuntu-latest, os: ubuntu, codename: bionic, image_owner: , package_type: deb}
-          - {runs-on: ubuntu-latest, os: ubuntu, codename: focal, image_owner: , package_type: deb}
+          - {runs-on: ubuntu-latest, os: debian, codename: bookworm, image_owner: , package_type: deb}
+          - {runs-on: ubuntu-latest, os: ubuntu, codename: noble, image_owner: , package_type: deb}
     runs-on: ${{ matrix.runs-on }}
     container: ${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' && ':' || '' }}${{ matrix.codename }}
     name: ${{ matrix.os == '' && matrix.runs-on || 'linux container - ' }}${{ matrix.image_owner }}${{ matrix.os }}${{ matrix.os != '' && ':' || '' }}${{ matrix.codename }}
